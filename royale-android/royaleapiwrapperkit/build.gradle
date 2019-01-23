@@ -42,7 +42,10 @@ dependencies {
 
     implementation 'androidx.annotation:annotation:1.0.1'
 
-    testImplementation 'junit:junit:4.12'
+    // Gonna try TestNG out and see if it fits my needs
+    testImplementation 'org.testng:testng:6.10'
+    // If all else fails, I can always just go back to JUnit
+//    testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
