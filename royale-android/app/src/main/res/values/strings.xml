@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RoyaleApiWrapper</string>
+    <string name="click_me">Click Me!</string>
 </resources>
