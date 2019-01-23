@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="off_white">#FFFEFEFE</color>
+    <color name="black">#FF000000</color>
+
+    <color name="colorPrimary">#FF38578C</color>
+    <color name="colorPrimaryDark">#FF112E5F</color>
+    <color name="colorAccent">#FFC94456</color>
+
+    <color name="window_background_default">@color/off_white</color>
+
+</resources>

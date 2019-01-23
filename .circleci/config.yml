@@ -1,0 +1,69 @@
+version: 2.0
+
+jobs:
+  build:
+    working_directory: ~/code/royale-android/
+
+    docker:
+    - image: circleci/android:api-28
+
+    environment:
+      JVM_OPTS: -Xmx3200m
+
+    steps:
+    - checkout
+    - restore_cache:
+        key: jars-{{ .BuildNum }}-{{ checksum "build.gradle" }}-{{ checksum "build.gradle" }}
+    - run:
+        name: Download Dependencies
+        command: ./gradlew androidDependencies
+    - run:
+        name: Copy Env Vars to Gradle Properties
+        command: source .circleci/environmentSetup.sh && copyEnvVarsToGradleProperties
+    - run:
+        name: Debug Assembly
+        command: ./gradlew assembleDebug
+    - save_cache:
+        paths:
+        - ~/.gradle
+        key: jars-{{ .BuildNum }}-{{ checksum "build.gradle" }}-{{ checksum "build.gradle" }}
+    - store_artifacts:
+        path: mobile/build/outputs/apk/debug
+        destination: mobile/apk
+
+  test:
+    docker:
+    - image: circleci/android:api-28
+
+    steps:
+    - checkout
+    - run:
+        name: Run Tests
+        command: ./gradlew lint test
+    - store_artifacts:
+        path: mobile/build/reports
+        destination: mobile/reports
+    - store_test_results:
+        path: mobile/build/reports/tests
+        destination: mobile/reports/tests
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+    - test:
+        filters:
+          branches:
+            only:
+            - master
+            - develop
+            - /feature/.*/
+    - build:
+        requires:
+        - test
+        filters:
+          branches:
+            only:
+            - master
+            - develop
+            - /feature/.*/
