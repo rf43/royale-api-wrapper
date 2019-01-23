@@ -28,7 +28,19 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
+    api 'com.google.auto.value:auto-value-annotations:1.6.2'
+    annotationProcessor "com.google.auto.value:auto-value:1.6.2"
+
+    implementation 'me.tatarka.gsonvalue:gsonvalue:0.9'
+    annotationProcessor 'me.tatarka.gsonvalue:gsonvalue-processor:0.9'
+
+    implementation 'androidx.annotation:annotation:1.0.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
