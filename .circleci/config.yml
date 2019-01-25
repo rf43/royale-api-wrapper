@@ -36,7 +36,7 @@ jobs:
     - image: circleci/android:api-28
 
     steps:
-    - checkout
+    - checkout:
         path: ~/royale-android
     - run:
         name: Run Tests
