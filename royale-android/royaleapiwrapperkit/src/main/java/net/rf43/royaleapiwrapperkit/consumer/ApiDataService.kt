@@ -1,21 +1,20 @@
-package net.rf43.royaleapiwrapperkit.api
+package net.rf43.royaleapiwrapperkit.consumer
 
+import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
-import okhttp3.OkHttpClient
-import okhttp3.ResponseBody
 
-
-interface RoyaleApiDataService {
+interface ApiDataService {
 
     @GET("player/{playerId}")
     fun player(@Path("playerId") playerId: String): Call<RawPlayerModel.RawPlayer>
 
     @GET("top/players")
-    fun topPlayers(): Call<List<RawTopPlayerModel.RawTopPlayer>>
+    fun topPlayers(): Call<List<RawTopPlayerModel.RawTopPlayer>?>
 
     @GET("popular/players")
     fun popularPlayers(): Call<List<RawPopularPlayerModel.RawPopularPlayer>>
@@ -26,7 +25,7 @@ interface RoyaleApiDataService {
     companion object {
         private const val CR_API_BASE_ENDPOINT = "https://api.royaleapi.com/"
 
-        fun create(developerKey: String): RoyaleApiDataService {
+        fun create(developerKey: String): ApiDataService {
 
             val builder = OkHttpClient().newBuilder().addInterceptor { chain ->
                 val request = chain.request().newBuilder().addHeader("auth", developerKey).build()
@@ -39,7 +38,7 @@ interface RoyaleApiDataService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
-            return retrofit.create(RoyaleApiDataService::class.java)
+            return retrofit.create(ApiDataService::class.java)
         }
     }
 }
