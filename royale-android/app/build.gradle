@@ -19,8 +19,8 @@ android {
             buildConfigField("String", "developerKey", properties.developer_key)
             buildConfigField("String", "testPlayerId", properties.player_id)
         } else {
-            buildConfigField("String", "developerKey", "add_your_key")
-            buildConfigField("String", "testPlayerId", "add_your_player_id")
+            buildConfigField("String", "developerKey", "\"add_your_key\"")
+            buildConfigField("String", "testPlayerId", "\"add_your_player_id\"")
         }
 
     }
