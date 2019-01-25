@@ -16,10 +16,13 @@ android {
         Properties properties = new Properties()
         if (project.rootProject.file('local.properties').exists()) {
             properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            buildConfigField("String", "developerKey", properties.developer_key)
+            buildConfigField("String", "testPlayerId", properties.player_id)
+        } else {
+            buildConfigField("String", "developerKey", "add_your_key")
+            buildConfigField("String", "testPlayerId", "add_your_player_id")
         }
 
-        buildConfigField("String", "developerKey", properties.developer_key)
-        buildConfigField("String", "testPlayerId", properties.player_id)
     }
 
     buildTypes {
