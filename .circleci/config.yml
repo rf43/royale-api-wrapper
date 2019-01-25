@@ -16,13 +16,13 @@ jobs:
         key: jars-{{ .BuildNum }}-{{ checksum "build.gradle" }}-{{ checksum "build.gradle" }}
     - run:
         name: Download Dependencies
-        command: ./gradlew androidDependencies
+        command: cd royale-android && ./gradlew androidDependencies
     - run:
         name: Copy Env Vars to Gradle Properties
         command: source .circleci/environmentSetup.sh && copyEnvVarsToGradleProperties
     - run:
         name: Debug Assembly
-        command: ./gradlew assembleDebug
+        command: cd royale-android && ./gradlew assembleDebug
     - save_cache:
         paths:
         - ~/.gradle
