@@ -36,11 +36,18 @@ android {
             minifyEnabled false
         }
     }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+
+        main.res.srcDirs += 'src/main/kotlin/net/rf43/royaleapikit_example/home/res'
+        main.res.srcDirs += 'src/main/kotlin/net/rf43/royaleapikit_example/top_players/res'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(path: ':royaleapiwrapperkit')
+    implementation project(path: ':royaleapikit')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'

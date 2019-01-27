@@ -1,21 +1,21 @@
-package net.rf43.royaleapiwrapper.top_players
+package net.rf43.royaleapikit_example.top_players
 
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.ContentLoadingProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import net.rf43.royaleapiwrapper.BuildConfig
-import net.rf43.royaleapiwrapper.R
-import net.rf43.royaleapiwrapper.top_players.adapters.TopPlayersListAdapter
+import net.rf43.royaleapikit_example.BuildConfig
+import net.rf43.royaleapikit_example.R
+import net.rf43.royaleapikit_example.top_players.adapters.TopPlayersListAdapter
 import net.rf43.royaleapiwrapperkit.RoyaleApiKit
 import net.rf43.royaleapiwrapperkit.consumer.RawTopPlayerModel
+
 
 class ActivityTopPlayers : AppCompatActivity() {
 
@@ -44,6 +44,7 @@ class ActivityTopPlayers : AppCompatActivity() {
     }
 
     private fun initTopPlayerList(players: List<RawTopPlayerModel.RawTopPlayer>) {
-        topPlayerRecyclerView.adapter = TopPlayersListAdapter(context = this, players = players)
+        topPlayerRecyclerView.adapter =
+            TopPlayersListAdapter(context = this, players = players)
     }
 }

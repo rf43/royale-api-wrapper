@@ -1,11 +1,12 @@
-package net.rf43.royaleapiwrapper
+package net.rf43.royaleapikit_example.home
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import net.rf43.royaleapiwrapper.top_players.ActivityTopPlayers
+import net.rf43.royaleapikit_example.R
+import net.rf43.royaleapikit_example.top_players.ActivityTopPlayers
 
 class HomeActivity : AppCompatActivity() {
 
@@ -20,10 +21,12 @@ class HomeActivity : AppCompatActivity() {
         topPlayerButton = findViewById(R.id.home_top_players_button)
 
         topPlayerButton.setOnClickListener {
-            startActivity(Intent(
+            startActivity(
+                Intent(
                     this,
                     ActivityTopPlayers::class.java
-            ))
+            )
+            )
         }
     }
 }

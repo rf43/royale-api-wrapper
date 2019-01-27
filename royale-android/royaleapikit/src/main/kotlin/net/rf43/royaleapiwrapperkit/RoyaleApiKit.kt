@@ -11,10 +11,13 @@ class RoyaleApiKit(developerKey: String) {
 
     suspend fun getTopPlayers(): List<RawTopPlayerModel.RawTopPlayer> {
         val pList = royaleApiDataService.topPlayersAsync()
+
         try {
             val response = pList.await()
-            response.body()?.let {
-                return it
+            if (response.body() != null && response.isSuccessful) {
+                response.body()?.let {
+                    return it
+                }
             }
         } catch (e: HttpException) {
             Log.e("RoyaleApiKit", "There was an HttpException error", e)
