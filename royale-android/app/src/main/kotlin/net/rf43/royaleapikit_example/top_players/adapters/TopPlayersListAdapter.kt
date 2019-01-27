@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import net.rf43.royaleapikit_example.R
 import net.rf43.royaleapikit_example.top_players.viewholders.TopPlayerViewHolder
-import net.rf43.royaleapiwrapperkit.consumer.RawTopPlayerModel
+import net.rf43.royaleapikit.consumer.RawTopPlayerModel
 
 class TopPlayersListAdapter(val context: Context, val players: List<RawTopPlayerModel.RawTopPlayer>) :
     RecyclerView.Adapter<TopPlayerViewHolder>() {

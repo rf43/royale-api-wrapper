@@ -1,4 +1,4 @@
-package net.rf43.royaleapiwrapperkit;
+package net.rf43.royaleapikit;
 
 import org.testng.annotations.Test;
 

@@ -3,23 +3,20 @@ package net.rf43.royaleapikit_example.top_players
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import net.rf43.royaleapikit_example.BuildConfig
 import net.rf43.royaleapikit_example.R
+import net.rf43.royaleapikit_example.common.BaseActivity
 import net.rf43.royaleapikit_example.top_players.adapters.TopPlayersListAdapter
-import net.rf43.royaleapiwrapperkit.RoyaleApiKit
-import net.rf43.royaleapiwrapperkit.consumer.RawTopPlayerModel
+import net.rf43.royaleapikit.consumer.RawTopPlayerModel
 
 
-class ActivityTopPlayers : AppCompatActivity() {
+class ActivityTopPlayers : BaseActivity() {
 
-    private lateinit var royaleApiKit: RoyaleApiKit
     private lateinit var topPlayerRecyclerView: RecyclerView
     private lateinit var topPlayerLoadingIndicator: ProgressBar
 
@@ -27,7 +24,7 @@ class ActivityTopPlayers : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_top_players)
 
-        royaleApiKit = RoyaleApiKit(BuildConfig.developerKey)
+
 
         topPlayerLoadingIndicator = findViewById(R.id.top_player_loading_indicator)
         topPlayerLoadingIndicator.visibility = View.VISIBLE

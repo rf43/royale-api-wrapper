@@ -7,7 +7,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "net.rf43.royaleapiwrapper"
+        applicationId "net.rf43.royaleapikit_example"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1

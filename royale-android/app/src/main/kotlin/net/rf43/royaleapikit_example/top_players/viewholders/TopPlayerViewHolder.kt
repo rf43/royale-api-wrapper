@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import net.rf43.royaleapikit_example.R
-import net.rf43.royaleapiwrapperkit.consumer.RawTopPlayerModel
+import net.rf43.royaleapikit.consumer.RawTopPlayerModel
 
 class TopPlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

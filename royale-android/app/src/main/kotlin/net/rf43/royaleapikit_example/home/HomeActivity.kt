@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import net.rf43.royaleapikit_example.R
+import net.rf43.royaleapikit_example.common.BaseActivity
 import net.rf43.royaleapikit_example.top_players.ActivityTopPlayers
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
     private lateinit var homeTitle: TextView
     private lateinit var topPlayerButton: Button
