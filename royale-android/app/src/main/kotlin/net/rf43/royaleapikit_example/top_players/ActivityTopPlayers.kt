@@ -14,7 +14,6 @@ import net.rf43.royaleapikit_example.common.BaseActivity
 import net.rf43.royaleapikit_example.top_players.adapters.TopPlayersListAdapter
 import net.rf43.royaleapikit.consumer.RawTopPlayerModel
 
-
 class ActivityTopPlayers : BaseActivity() {
 
     private lateinit var topPlayerRecyclerView: RecyclerView
@@ -24,8 +23,6 @@ class ActivityTopPlayers : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_top_players)
 
-
-
         topPlayerLoadingIndicator = findViewById(R.id.top_player_loading_indicator)
         topPlayerLoadingIndicator.visibility = View.VISIBLE
 
@@ -33,9 +30,7 @@ class ActivityTopPlayers : BaseActivity() {
         topPlayerRecyclerView.layoutManager = LinearLayoutManager(this)
 
         GlobalScope.launch(Dispatchers.Main) {
-            val theList = royaleApiKit.getTopPlayers()
-            delay(5000)
-            initTopPlayerList(theList)
+            initTopPlayerList(royaleApiKit.getRawTopPlayers())
             topPlayerLoadingIndicator.visibility = View.GONE
         }
     }

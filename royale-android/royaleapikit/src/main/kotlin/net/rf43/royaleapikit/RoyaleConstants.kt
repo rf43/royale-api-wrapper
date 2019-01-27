@@ -1,48 +1,83 @@
 package net.rf43.royaleapikit
 
 import android.content.Context
-import android.util.Log
-import com.google.gson.Gson
 import net.rf43.royaleapikit.consumer.ApiDataService
 import net.rf43.royaleapikit.consumer.RawConstantsModel
+import net.rf43.royaleapikit.extensions.createFromJson
 import net.rf43.royaleapikit.extensions.isValid
 import net.rf43.royaleapikit.extensions.persist
 import retrofit2.HttpException
-import java.io.FileNotFoundException
+import java.lang.IllegalStateException
 import java.nio.charset.Charset
 
-class RoyaleConstants(
-    private val context: Context,
-    private val royaleApiDataService: ApiDataService
-) {
-    private lateinit var royalApiKitConstants: RawConstantsModel.RawConstant
+class RoyaleConstants(private val context: Context, private val royaleApiDataService: ApiDataService) {
+
     private val constantsFilename: String = "royale_constants.json"
+    private val royaleLog: Logger = Logger(RoyaleConstants::class.java.simpleName)
+
+    // 1 days in milliseconds
+    private val constantsRefreshRateInMillis = 1L * 24L * 60L * 60L * 1000L
+
+    // Last updated time in millis
+    private val lastRefreshInMillis = 0L
+
+    private lateinit var royalApiKitConstants: RawConstantsModel.RawConstant
 
     suspend fun getConstants(): RawConstantsModel.RawConstant {
-        // Check if constants are initialized
-        if (this::royalApiKitConstants.isInitialized) {
+        // Check if constants are initialized and valid
+        if (this::royalApiKitConstants.isInitialized && royalApiKitConstants.isValid()) {
             return royalApiKitConstants
         } else {
-            // It's not initialized, let's check to see if there's a file
-            if (context.fileList().contains(constantsFilename)) {
-                return generateConstantsFromFile()
-            } else {
-                // Get the string from the api...
-                val stringFromApi = getConstantsFromApi()
-                if (stringFromApi != null && stringFromApi.isNotEmpty()) {
-                    // There is no file, let's create one
-                    Log.d("RoyaleApiKit", "There is no file, create one... [01]")
-                    createAndWriteJsonToFile(stringFromApi)
-                    val rawConsts = convertStringToRawConstant(stringFromApi)
-                    if (rawConsts.isValid()) {
-                        return rawConsts!!
-                    } else {
-                        // rawConsts isn't valid for some reason...
-                        Log.w("RoyaleApiKit", "rawConsts isn't valid for some reason... [01]")
-                    }
+            // It's not initialized or it's not valid
+            // Let's check to see if it's valid first.
+            // We'll do this because if it's not valid then we need to hit the API and refresh whatever we
+            // may currently have.
+            if (this::royalApiKitConstants.isInitialized) {
+                // It's initialized so that means it's not valid and we need to refresh from the API
+                val apiConsts = buildConstantsFromApi()
+                if (apiConsts.isValid()) {
+                    // Now that we have valid consts, let's persist them so that we'll
+                    // have them next time we need them
+                    apiConsts.persist(context)
+                    // Now we can return them
+                    return apiConsts
                 } else {
-                    // Something is wrong with the string
-                    Log.w("RoyaleApiKit", "Something is wrong with the string... [01]")
+                    // They're not valid for some reason.
+                    royaleLog.e(
+                        message = "ERROR: The constants from the API were not valid for some reason",
+                        methodName = "getConstants",
+                        throwable = IllegalStateException("apiConsts: $apiConsts.toString()")
+                    )
+                }
+            } else {
+                // it is not initialized
+                // Try to build from file
+                var consts = buildConstantsFromFile()
+                // Are they valid?
+                if (consts.isValid()) {
+                    // Yeah, so return them
+                    return consts
+                } else {
+                    royaleLog.w(
+                        message = "The constants from the filesystem were not valid. Attempting to build them from the API",
+                        methodName = "getConstants"
+                    )
+                    // No! So, let's try building them from the API
+                    consts = buildConstantsFromApi()
+                    // Are they valid?
+                    if (consts.isValid()) {
+                        // They're valid, let's persist them so that they are
+                        // ready to use next time
+                        consts.persist(context)
+                        // and now, let's return them
+                        return consts
+                    } else {
+                        royaleLog.e(
+                            message = "ERROR: The constants from the API were not valid for some reason",
+                            methodName = "getConstants",
+                            throwable = IllegalStateException("consts: $consts.toString()")
+                        )
+                    }
                 }
             }
         }
@@ -50,105 +85,78 @@ class RoyaleConstants(
         // There is something irrecoverably wrong and we cannot create the constants
         // so, for now we'll just create an empty one and then we'll have an extension function
         // to be able to check to see if the object is valid (obj.isValid() will return false)
-        Log.e(
-            "RoyaleApiKit",
-            "getConstants => Unable to instantiate a new RawConstant from file or external API 03",
-            InstantiationException()
+        royaleLog.e(
+            message = "Unable to instantiate a new RawConstant from file or external API",
+            methodName = "getConstants",
+            throwable = InstantiationException()
         )
-        return RawConstantsModel.RawConstant(null, null, null, null)
+
+        return RawConstantsModel.RawConstant()
     }
 
-    private suspend fun createAndWriteJsonToFile(jsonString: String?) {
-        if (jsonString != null && jsonString.isNotEmpty()) {
-
-        }
-    }
-
-    private suspend fun generateConstantsFromFile(): RawConstantsModel.RawConstant {
-        // There's a file, let's try to read it
-        val constsFromFile = readConstantsFromFile()
-        if (constsFromFile != null && constsFromFile.isNotEmpty()) {
-            Log.i("RoyaleApiKit", "Constants from the file system ARE valid! 01")
-            val obj = convertStringToRawConstant(constsFromFile)
-            if (obj.isValid()) {
-                return obj!!
-            }
-        } else {
-            Log.w("RoyaleApiKit", "Constants from the file system ARE NOT valid! 01")
-            Log.w("RoyaleApiKit", "Attempting to obtain them via the API...")
-            // Try to get them from the API
-            val apiString = getConstantsFromApi()
-            if (apiString != null && apiString.isNotEmpty()) {
-                val constsFromApi = convertStringToRawConstant(apiString)
-                if (constsFromApi.isValid()) {
-                    Log.i("RoyaleApiKit", "Constants from the API are valid! 01")
-                    constsFromApi.persist(context)
-                    return constsFromApi!!
-                } else {
-                    // There's a problem...
-                    Log.w("RoyaleApiKit", "Constants from the API ARE NOT valid! 01")
-                    Log.e(
-                        "RoyaleApiKit",
-                        "There was a problem obtaining the API constants from both the API and file system 01"
-                    )
-                }
+    private fun buildConstantsFromFile(): RawConstantsModel.RawConstant {
+        // Check to see if there is a file
+        if (context.fileList().contains(constantsFilename)) {
+            // Since there's a file, let's get the json as a string
+            val jsonFromFile = getJsonAsStringFromFile()
+            // Now we make sure it's not blank
+            if (jsonFromFile.isNotBlank()) {
+                // Create a new RawConstant
+                return RawConstantsModel.RawConstant().createFromJson(jsonFromFile)
             } else {
-                // There's a problem...
-                Log.w("RoyaleApiKit", "Constants from the API ARE NOT valid! 01")
-                Log.e(
-                    "RoyaleApiKit",
-                    "There was a problem obtaining the string from the API"
-                )
-                Log.w("RoyaleApiKit", "apiString is null => ${apiString == null}")
-                if (apiString != null) {
-                    Log.w("RoyaleApiKit", "apiString isNotEmpty => ${apiString.isNotEmpty()}")
-                }
+                royaleLog.w(message = "The json from the file is blank!", methodName = "buildConstantsFromFile")
             }
-        }
-
-        return RawConstantsModel.RawConstant(null, null, null, null)
-    }
-
-    private fun convertStringToRawConstant(string: String?): RawConstantsModel.RawConstant? {
-        val obj = Gson().fromJson(string, RawConstantsModel.RawConstant::class.java)
-        return if (obj != null && obj is RawConstantsModel.RawConstant) {
-            obj
         } else {
-            null
+            royaleLog.w(message = "There is no file to read from", methodName = "buildConstantsFromFile")
+        }
+
+        return RawConstantsModel.RawConstant()
+    }
+
+    private suspend fun buildConstantsFromApi(): RawConstantsModel.RawConstant {
+        val apiJson = getJsonAsStringFromApi()
+
+        return if (apiJson.isNotBlank()) {
+            RawConstantsModel.RawConstant().createFromJson(apiJson)
+        } else {
+            royaleLog.w(
+                message = "Could not build the constants from the string returned from the API",
+                methodName = "buildConstantsFromApi"
+            )
+            RawConstantsModel.RawConstant()
         }
     }
 
-    private suspend fun getConstantsFromApi(): String? {
+    private suspend fun getJsonAsStringFromApi(): String {
         val constantsResponseAsync = royaleApiDataService.constantsAsync()
 
         try {
             val response = constantsResponseAsync.await()
             if (response.body() != null && response.isSuccessful) {
-                var responseBodyString: String
                 response.body()?.let { responseBody ->
-                    responseBodyString = responseBody.string()
-                    if (responseBodyString.isNotEmpty()) {
-                        return responseBodyString
-                    }
+                    return responseBody.string()
                 }
+            } else {
+                royaleLog.w(
+                    message = "response body is null or was not successful",
+                    methodName = "getJsonAsStringFromApi"
+                )
             }
         } catch (e: HttpException) {
-            Log.e("RoyaleApiKit", "getConstants -> There was an HttpException error", e)
+            royaleLog.e(
+                message = "There was an HttpException error",
+                methodName = "getConstantsJsonFromApi",
+                throwable = e
+            )
         } catch (e: Throwable) {
-            Log.e("RoyaleApiKit", "getConstants -> There was a Throwable error", e)
+            royaleLog.e(message = "There was a Throwable error", methodName = "getConstantsJsonFromApi", throwable = e)
         }
 
-        return null
+        return ""
     }
 
-    @Throws(FileNotFoundException::class)
-    private fun readConstantsFromFile(): String? {
+    private fun getJsonAsStringFromFile(): String {
         val fromFile = context.openFileInput(constantsFilename)
-        val txt = fromFile.bufferedReader(Charset.defaultCharset()).use { it.readText() }
-        return if (txt.isEmpty()) {
-            null
-        } else {
-            txt
-        }
+        return fromFile.bufferedReader(Charset.defaultCharset()).use { it.readText() }
     }
 }

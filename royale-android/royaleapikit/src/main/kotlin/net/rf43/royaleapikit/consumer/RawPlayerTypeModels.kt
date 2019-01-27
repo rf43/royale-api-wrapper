@@ -1,7 +1,7 @@
 package net.rf43.royaleapikit.consumer
 
 object RawPlayerModel {
-    data class RawPlayer(val tag: String?, val name: String?, val trophies: Int?, val rank: Int?)
+    data class RawPlayer(val tag: String? = null, val name: String? = null, val trophies: Int?, val rank: Int?)
 }
 
 object RawPopularPlayerModel {
