@@ -35,11 +35,11 @@ interface ApiDataService {
             }
 
             val retrofit = Retrofit.Builder()
-                    .baseUrl(CR_API_BASE_ENDPOINT)
-                    .client(builder.build())
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                    .build()
+                .baseUrl(CR_API_BASE_ENDPOINT)
+                .client(builder.build())
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                .build()
 
             return retrofit.create(ApiDataService::class.java)
         }

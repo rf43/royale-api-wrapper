@@ -1,5 +1,7 @@
 package net.rf43.royaleapikit.consumer
 
+import android.content.Context
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
 object RawConstantsModel {
@@ -271,7 +273,7 @@ object RawConstantsModel {
     )
 }
 
-fun RawConstantsModel.RawConstant?.areValid(): Boolean {
+fun RawConstantsModel.RawConstant?.isValid(): Boolean {
     if (this == null) {
         return false
     }
@@ -293,4 +295,25 @@ fun RawConstantsModel.RawConstant?.areValid(): Boolean {
     }
 
     return true
+}
+
+fun RawConstantsModel.RawConstant?.persist(context: Context) {
+    val str = this.convertToString()
+    if (str != null && str.isNotEmpty()) {
+        val constantsFilename = "royale_constants.json"
+        context.openFileOutput(constantsFilename, Context.MODE_PRIVATE).use { stream ->
+            stream.write(str.toByteArray())
+        }
+    }
+}
+
+fun RawConstantsModel.RawConstant?.convertToString(): String? {
+    if (this != null) {
+        val str = Gson().toJson(this, RawConstantsModel.RawConstant::class.java)
+        if (str != null && str.isNotEmpty()) {
+            return str
+        }
+    }
+
+    return null
 }
