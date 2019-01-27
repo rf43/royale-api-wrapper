@@ -5,8 +5,8 @@ import android.util.Log
 import com.google.gson.Gson
 import net.rf43.royaleapikit.consumer.ApiDataService
 import net.rf43.royaleapikit.consumer.RawConstantsModel
-import net.rf43.royaleapikit.consumer.isValid
-import net.rf43.royaleapikit.consumer.persist
+import net.rf43.royaleapikit.extensions.isValid
+import net.rf43.royaleapikit.extensions.persist
 import retrofit2.HttpException
 import java.io.FileNotFoundException
 import java.nio.charset.Charset
@@ -27,26 +27,41 @@ class RoyaleConstants(
             if (context.fileList().contains(constantsFilename)) {
                 return generateConstantsFromFile()
             } else {
-                // There is no file, let's create one
-                Log.d("RoyaleApiKit", "There is no file, create one... 02")
+                // Get the string from the api...
                 val stringFromApi = getConstantsFromApi()
-                val constsFromApi = convertStringToRawConstant(stringFromApi)
-                if (constsFromApi.isValid()) {
-                    Log.i("RoyaleApiKit", "Constants ARE valid! 02")
-                    constsFromApi.persist(context)
-                    return constsFromApi!!
+                if (stringFromApi != null && stringFromApi.isNotEmpty()) {
+                    // There is no file, let's create one
+                    Log.d("RoyaleApiKit", "There is no file, create one... [01]")
+                    createAndWriteJsonToFile(stringFromApi)
+                    val rawConsts = convertStringToRawConstant(stringFromApi)
+                    if (rawConsts.isValid()) {
+                        return rawConsts!!
+                    } else {
+                        // rawConsts isn't valid for some reason...
+                        Log.w("RoyaleApiKit", "rawConsts isn't valid for some reason... [01]")
+                    }
                 } else {
-                    Log.w("RoyaleApiKit", "Constants from the API ARE NOT valid! 02")
+                    // Something is wrong with the string
+                    Log.w("RoyaleApiKit", "Something is wrong with the string... [01]")
                 }
             }
         }
-        // There is something wrong and we cannot create the constants
+
+        // There is something irrecoverably wrong and we cannot create the constants
+        // so, for now we'll just create an empty one and then we'll have an extension function
+        // to be able to check to see if the object is valid (obj.isValid() will return false)
         Log.e(
             "RoyaleApiKit",
             "getConstants => Unable to instantiate a new RawConstant from file or external API 03",
             InstantiationException()
         )
         return RawConstantsModel.RawConstant(null, null, null, null)
+    }
+
+    private suspend fun createAndWriteJsonToFile(jsonString: String?) {
+        if (jsonString != null && jsonString.isNotEmpty()) {
+
+        }
     }
 
     private suspend fun generateConstantsFromFile(): RawConstantsModel.RawConstant {
@@ -67,8 +82,8 @@ class RoyaleConstants(
                 val constsFromApi = convertStringToRawConstant(apiString)
                 if (constsFromApi.isValid()) {
                     Log.i("RoyaleApiKit", "Constants from the API are valid! 01")
-                    writeConstantsToFile(constsFromApi!!)
-                    return constsFromApi
+                    constsFromApi.persist(context)
+                    return constsFromApi!!
                 } else {
                     // There's a problem...
                     Log.w("RoyaleApiKit", "Constants from the API ARE NOT valid! 01")
@@ -124,19 +139,6 @@ class RoyaleConstants(
         }
 
         return null
-    }
-
-    private fun writeConstantsToFile(constants: RawConstantsModel.RawConstant) {
-        context.openFileOutput(constantsFilename, Context.MODE_PRIVATE).use { stream ->
-            val json = Gson().toJson(constants, RawConstantsModel.RawConstant::class.java)
-            stream.write(json.toByteArray())
-        }
-    }
-
-    private fun writeConstantsToFile(string: String) {
-        context.openFileOutput(constantsFilename, Context.MODE_PRIVATE).use { stream ->
-            stream.write(string.toByteArray())
-        }
     }
 
     @Throws(FileNotFoundException::class)
