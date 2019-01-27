@@ -298,7 +298,7 @@ fun RawConstantsModel.RawConstant?.isValid(): Boolean {
 }
 
 fun RawConstantsModel.RawConstant?.persist(context: Context) {
-    val str = this.convertToString()
+    val str = this.convertToJson()
     if (str != null && str.isNotEmpty()) {
         val constantsFilename = "royale_constants.json"
         context.openFileOutput(constantsFilename, Context.MODE_PRIVATE).use { stream ->
@@ -307,7 +307,7 @@ fun RawConstantsModel.RawConstant?.persist(context: Context) {
     }
 }
 
-fun RawConstantsModel.RawConstant?.convertToString(): String? {
+fun RawConstantsModel.RawConstant?.convertToJson(): String? {
     if (this != null) {
         val str = Gson().toJson(this, RawConstantsModel.RawConstant::class.java)
         if (str != null && str.isNotEmpty()) {
