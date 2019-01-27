@@ -1,8 +1,11 @@
 package net.rf43.royaleapiwrapperkit.consumer
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -11,16 +14,16 @@ import retrofit2.http.Path
 interface ApiDataService {
 
     @GET("player/{playerId}")
-    fun player(@Path("playerId") playerId: String): Call<RawPlayerModel.RawPlayer>
+    fun playerAsync(@Path("playerId") playerId: String): Deferred<Response<RawPlayerModel.RawPlayer>>
 
     @GET("top/players")
-    fun topPlayers(): Call<List<RawTopPlayerModel.RawTopPlayer>?>
+    fun topPlayersAsync(): Deferred<Response<ArrayList<RawTopPlayerModel.RawTopPlayer>?>>
 
     @GET("popular/players")
-    fun popularPlayers(): Call<List<RawPopularPlayerModel.RawPopularPlayer>>
+    fun popularPlayersAsync(): Deferred<Response<ArrayList<RawPopularPlayerModel.RawPopularPlayer>>>
 
     @GET("constants")
-    fun constants(): Call<ResponseBody>
+    fun constantsAsync(): Deferred<Response<ResponseBody>>
 
     companion object {
         private const val CR_API_BASE_ENDPOINT = "https://api.royaleapi.com/"
@@ -33,10 +36,11 @@ interface ApiDataService {
             }
 
             val retrofit = Retrofit.Builder()
-                .baseUrl(CR_API_BASE_ENDPOINT)
-                .client(builder.build())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+                    .baseUrl(CR_API_BASE_ENDPOINT)
+                    .client(builder.build())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                    .build()
 
             return retrofit.create(ApiDataService::class.java)
         }
