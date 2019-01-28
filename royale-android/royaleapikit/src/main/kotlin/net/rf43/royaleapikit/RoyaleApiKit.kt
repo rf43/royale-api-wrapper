@@ -1,10 +1,8 @@
 package net.rf43.royaleapikit
 
 import android.content.Context
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.rf43.royaleapikit.consumer.ApiDataService
 import net.rf43.royaleapikit.consumer.RawConstantsModel
