@@ -39,8 +39,10 @@ class RoyaleConstants(private val context: Context, private val royaleApiDataSer
                     // Now that we have valid consts, let's persist them so that we'll
                     // have them next time we need them
                     apiConsts.persist(context)
+                    // Initialize royalApiKitConstants
+                    royalApiKitConstants = apiConsts
                     // Now we can return them
-                    return apiConsts
+                    return royalApiKitConstants
                 } else {
                     // They're not valid for some reason.
                     royaleLog.e(
@@ -55,8 +57,10 @@ class RoyaleConstants(private val context: Context, private val royaleApiDataSer
                 var consts = buildConstantsFromFile()
                 // Are they valid?
                 if (consts.isValid()) {
+                    // Initialize royalApiKitConstants
+                    royalApiKitConstants = consts
                     // Yeah, so return them
-                    return consts
+                    return royalApiKitConstants
                 } else {
                     royaleLog.w(
                         message = "The constants from the filesystem were not valid. Attempting to build them from the API",
@@ -69,8 +73,10 @@ class RoyaleConstants(private val context: Context, private val royaleApiDataSer
                         // They're valid, let's persist them so that they are
                         // ready to use next time
                         consts.persist(context)
+                        // Initialize royalApiKitConstants
+                        royalApiKitConstants = consts
                         // and now, let's return them
-                        return consts
+                        return royalApiKitConstants
                     } else {
                         royaleLog.e(
                             message = "ERROR: The constants from the API were not valid for some reason",
@@ -91,7 +97,9 @@ class RoyaleConstants(private val context: Context, private val royaleApiDataSer
             throwable = InstantiationException()
         )
 
-        return RawConstantsModel.RawConstant()
+        // Initialize royalApiKitConstants
+        royalApiKitConstants = RawConstantsModel.RawConstant()
+        return royalApiKitConstants
     }
 
     private fun buildConstantsFromFile(): RawConstantsModel.RawConstant {
