@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">RoyaleApiWrapper</string>
+    <string name="app_name">RoyaleApiKit Example Application</string>
     <string name="click_me">Click Me!</string>
+    <string name="top_players">Top Players</string>
 </resources>
