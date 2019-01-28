@@ -3,25 +3,20 @@ package net.rf43.royaleapikit
 import android.content.Context
 import net.rf43.royaleapikit.consumer.ApiDataService
 import net.rf43.royaleapikit.consumer.RawConstantsModel
-import net.rf43.royaleapikit.extensions.createFromJson
-import net.rf43.royaleapikit.extensions.isValid
-import net.rf43.royaleapikit.extensions.persist
+import net.rf43.royaleapikit.extensions.*
 import retrofit2.HttpException
-import java.lang.IllegalStateException
-import java.nio.charset.Charset
 
 class RoyaleConstants(private val context: Context, private val royaleApiDataService: ApiDataService) {
 
-    private val constantsFilename: String = "royale_constants.json"
     private val royaleLog: Logger = Logger(RoyaleConstants::class.java.simpleName)
 
     // 1 days in milliseconds
     private val constantsRefreshRateInMillis = 1L * 24L * 60L * 60L * 1000L
-
     // Last updated time in millis
     private val lastRefreshInMillis = 0L
 
     private lateinit var royalApiKitConstants: RawConstantsModel.RawConstant
+
 
     suspend fun getConstants(): RawConstantsModel.RawConstant {
         // Check if constants are initialized and valid
@@ -97,20 +92,21 @@ class RoyaleConstants(private val context: Context, private val royaleApiDataSer
             throwable = InstantiationException()
         )
 
-        // Initialize royalApiKitConstants
+        // Initialize royalApiKitConstants with empty constants
         royalApiKitConstants = RawConstantsModel.RawConstant()
+
         return royalApiKitConstants
     }
 
     private fun buildConstantsFromFile(): RawConstantsModel.RawConstant {
         // Check to see if there is a file
-        if (context.fileList().contains(constantsFilename)) {
+        if (context.fileList().contains(RawConstantsModel.RawConstant().getPersistFilename())) {
             // Since there's a file, let's get the json as a string
-            val jsonFromFile = getJsonAsStringFromFile()
+            val jsonFromFile = getJsonFromFile<RawConstantsModel.RawConstant>(context)
             // Now we make sure it's not blank
             if (jsonFromFile.isNotBlank()) {
                 // Create a new RawConstant
-                return RawConstantsModel.RawConstant().createFromJson(jsonFromFile)
+                return jsonFromFile.fromJson()
             } else {
                 royaleLog.w(message = "The json from the file is blank!", methodName = "buildConstantsFromFile")
             }
@@ -125,7 +121,7 @@ class RoyaleConstants(private val context: Context, private val royaleApiDataSer
         val apiJson = getJsonAsStringFromApi()
 
         return if (apiJson.isNotBlank()) {
-            RawConstantsModel.RawConstant().createFromJson(apiJson)
+            apiJson.fromJson()
         } else {
             royaleLog.w(
                 message = "Could not build the constants from the string returned from the API",
@@ -161,10 +157,5 @@ class RoyaleConstants(private val context: Context, private val royaleApiDataSer
         }
 
         return ""
-    }
-
-    private fun getJsonAsStringFromFile(): String {
-        val fromFile = context.openFileInput(constantsFilename)
-        return fromFile.bufferedReader(Charset.defaultCharset()).use { it.readText() }
     }
 }

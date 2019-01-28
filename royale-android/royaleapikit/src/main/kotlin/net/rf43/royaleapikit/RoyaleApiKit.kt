@@ -64,9 +64,6 @@ class RoyaleApiKit(private val context: Context, developerKey: String, private v
         }
     }
 
-    /**
-     *
-     */
     suspend fun getRawTopPlayers(): List<RawTopPlayerModel.RawTopPlayer> {
         val pList = royaleApiDataService.topPlayersAsync()
 
