@@ -5,4 +5,7 @@
     <string name="top_players">Top Players</string>
     <string name="ranking_with_number_hash">#%d</string>
     <string name="player_tag_with_leading_hash">#%s</string>
+    <string name="player">Player</string>
+    <string name="royaleapikit_home">RoyaleApiKit Home</string>
+    <string name="loading">loading...</string>
 </resources>

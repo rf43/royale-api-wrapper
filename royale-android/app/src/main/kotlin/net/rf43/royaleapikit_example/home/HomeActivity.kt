@@ -6,12 +6,14 @@ import android.widget.Button
 import android.widget.TextView
 import net.rf43.royaleapikit_example.R
 import net.rf43.royaleapikit_example.common.BaseActivity
+import net.rf43.royaleapikit_example.player.ActivityPlayer
 import net.rf43.royaleapikit_example.top_players.ActivityTopPlayers
 
 class HomeActivity : BaseActivity() {
 
     private lateinit var homeTitle: TextView
     private lateinit var topPlayerButton: Button
+    private lateinit var playerButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,12 +21,22 @@ class HomeActivity : BaseActivity() {
 
         homeTitle = findViewById(R.id.home_title)
         topPlayerButton = findViewById(R.id.home_top_players_button)
+        playerButton = findViewById(R.id.home_player_button)
 
         topPlayerButton.setOnClickListener {
             startActivity(
                     Intent(
                             this,
                             ActivityTopPlayers::class.java
+                    )
+            )
+        }
+
+        playerButton.setOnClickListener {
+            startActivity(
+                    Intent(
+                            this,
+                            ActivityPlayer::class.java
                     )
             )
         }
