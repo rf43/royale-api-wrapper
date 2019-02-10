@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="white">#FFFFFFFF</color>
-    <color name="off_white">#FFFEFEFE</color>
-    <color name="black">#FF000000</color>
+    <!--
+     Colors: The hex value colors that will be referenced by the more specific ids below.
+     Prefer using named ids rather than these directly in your layouts, etc...
+     -->
+    <color name="white">@android:color/white</color>
+    <color name="offWhite">#FFEFEFEF</color>
+    <color name="black">@android:color/black</color>
+    <color name="darkSteelBlue">@color/darkSteelBlue_100</color>
+    <color name="darkSteelBlue_0">#FF243A44</color>
+    <color name="darkSteelBlue_10">#1A243A44</color>
+    <color name="darkSteelBlue_20">#33243A44</color>
+    <color name="darkSteelBlue_25">#40243A44</color>
+    <color name="darkSteelBlue_30">#4D243A44</color>
+    <color name="darkSteelBlue_40">#66243A44</color>
+    <color name="darkSteelBlue_50">#80243A44</color>
+    <color name="darkSteelBlue_60">#99243A44</color>
+    <color name="darkSteelBlue_70">#B3243A44</color>
+    <color name="darkSteelBlue_75">#BF243A44</color>
+    <color name="darkSteelBlue_80">#CC243A44</color>
+    <color name="darkSteelBlue_90">#E6243A44</color>
+    <color name="darkSteelBlue_100">#FF243A44</color>
+    <color name="darkAqua">#FF1F757A</color>
+    <color name="darkPumpkin">#FFA76C00</color>
 
-    <color name="colorPrimary">#FF38578C</color>
-    <color name="colorPrimaryDark">#FF112E5F</color>
-    <color name="colorAccent">#FFC94456</color>
+    <!--
+    Named Ids: The names which are used throughout the code base.
+    Assign the names a color from the hex colors above
+    -->
+    <color name="colorPrimary">@color/darkAqua</color>
+    <color name="colorPrimaryDark">@color/darkSteelBlue</color>
+    <color name="colorAccent">@color/darkPumpkin</color>
 
-    <color name="window_background_default">@color/off_white</color>
+    <color name="windowBackgroundDefault">@color/offWhite</color>
+
+    <color name="topPlayer_clanStripe_startColor">@color/darkSteelBlue_100</color>
+    <color name="topPlayer_clanStripe_centerColor">@color/darkSteelBlue_75</color>
+    <color name="topPlayer_clanStripe_endColor">@color/darkSteelBlue_100</color>
+    <color name="topPlayer_clanName">@color/offWhite</color>
 
 </resources>

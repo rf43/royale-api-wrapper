@@ -22,10 +22,10 @@ class HomeActivity : BaseActivity() {
 
         topPlayerButton.setOnClickListener {
             startActivity(
-                Intent(
-                    this,
-                    ActivityTopPlayers::class.java
-            )
+                    Intent(
+                            this,
+                            ActivityTopPlayers::class.java
+                    )
             )
         }
     }

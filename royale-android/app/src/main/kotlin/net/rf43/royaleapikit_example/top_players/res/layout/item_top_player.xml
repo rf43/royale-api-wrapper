@@ -4,22 +4,83 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp">
+    android:paddingTop="@dimen/padding_full"
+    android:paddingBottom="@dimen/padding_full">
+
+    <TextView
+        android:id="@+id/top_player_clan_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/top_player_clan_stripe"
+        android:fontFamily="@font/montserrat_black"
+        android:paddingStart="52dp"
+        android:paddingTop="@dimen/padding_eighth"
+        android:paddingEnd="@dimen/padding_half"
+        android:paddingBottom="@dimen/padding_quarter"
+        android:textColor="@color/topPlayer_clanName"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/top_player_clan_badge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/top_player_clan_badge"
+        tools:text="Some Unknown Clan" />
+
+    <ImageView
+        android:id="@+id/top_player_clan_badge"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/no_clan" />
 
     <TextView
         android:id="@+id/top_player_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingTop="8dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="8dp"
-        android:textAllCaps="true"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="@dimen/margin_full"
+        android:fontFamily="@font/montserrat_black"
+        android:textColor="@color/darkSteelBlue"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@id/top_player_clan_badge"
+        app:layout_constraintTop_toBottomOf="@id/top_player_clan_title"
         tools:text="This is a name" />
+
+    <TextView
+        android:id="@+id/top_player_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_half"
+        android:layout_marginBottom="@dimen/margin_double"
+        android:fontFamily="@font/montserrat_medium"
+        android:textColor="@color/darkSteelBlue"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/temp_divider"
+        app:layout_constraintStart_toStartOf="@id/top_player_name"
+        app:layout_constraintTop_toBottomOf="@id/top_player_name"
+        tools:text="#D4RD4T" />
+
+    <TextView
+        android:id="@+id/top_player_rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:layout_marginEnd="@dimen/margin_full"
+        android:fontFamily="@font/slackey"
+        android:textColor="@color/darkSteelBlue"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="#100" />
+
+    <View
+        android:id="@+id/temp_divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/margin_full"
+        android:layout_marginEnd="@dimen/margin_full"
+        android:background="@color/darkSteelBlue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
