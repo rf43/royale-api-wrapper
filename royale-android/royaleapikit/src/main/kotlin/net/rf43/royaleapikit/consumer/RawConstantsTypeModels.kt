@@ -7,7 +7,15 @@ object RawConstantsModel {
         @SerializedName("alliance_badges") val allianceBadges: List<RawConstantAllianceBadge>? = null,
         @SerializedName("arenas") val arenas: List<RawConstantArena>? = null,
         @SerializedName("cards") val cards: List<RawConstantCard>? = null,
-        @SerializedName("cards_stats") val cardsStats: RawConstantCardsStats? = null
+        @SerializedName("cards_stats") val cardsStats: RawConstantCardsStats? = null,
+        @SerializedName("challenges") val challenges: List<RawConstantChallenge>? = null,
+        @SerializedName("chest_order") val chestOrder: RawConstantChestOrder? = null,
+        @SerializedName("clan_chest") val clan_chest: RawConstantClanChest? = null,
+        @SerializedName("game_modes") val game_modes: List<RawConstantGameModes>? = null,
+        @SerializedName("rarities") val rarities: List<RawConstantRarites>? = null,
+        @SerializedName("regions") val regions: List<RawConstantRegions>? = null,
+        @SerializedName("tournaments") val tournaments: List<RawConstantTournaments>? = null,
+        @SerializedName("treasure_chests") val treasure_chests: RawConstantTreasureChests? = null
     )
 
     data class RawConstantAllianceBadge(
@@ -57,6 +65,7 @@ object RawConstantsModel {
         @SerializedName("id") val id: Int? = null
     )
 
+    //region CardStats
     data class RawConstantCardsStats(
         @SerializedName("troop") val troops: List<RawConstantCardsStatsTroop>? = null,
         @SerializedName("building") val building: List<RawConstantCardsStatsBuilding>? = null,
@@ -269,4 +278,259 @@ object RawConstantsModel {
         @SerializedName("dps") val dps: Int? = null,
         @SerializedName("dps_per_level") val dps_per_level: List<Int>? = null
     )
+    //endregion
+
+    data class RawConstantChallenge(
+        @SerializedName("name") val name: String? = null,
+        @SerializedName("game_mode") val game_mode: String? = null,
+        @SerializedName("enabled") val enabled: Boolean? = null,
+        @SerializedName("join_cost") val join_cost: Int? = null,
+        @SerializedName("join_cost_resource") val join_cost_resource: String? = null,
+        @SerializedName("max_wins") val max_wins: Int? = null,
+        @SerializedName("max_loss") val max_loss: Int? = null,
+        @SerializedName("reward_cards") val reward_cards: List<Int>? = null,
+        @SerializedName("reward_gold") val reward_gold: List<Int>? = null,
+        @SerializedName("reward_spell") val reward_spell: Any? = null,
+        @SerializedName("reward_spell_max_count") val reward_spell_max_count: Int? = null,
+        @SerializedName("name_en") val name_en: String? = null,
+        @SerializedName("key") val key: String? = null,
+        @SerializedName("id") val id: Int? = null
+    )
+
+    //region ChestOrder
+    data class RawConstantChestOrder(
+        @SerializedName("MainCycle") val mainCycle: List<String>? = null,
+        @SerializedName("Quest_earlygame_1") val questEarlygame_1: List<RawConstantChestOrderGame>? = null,
+        @SerializedName("Quest_earlygame_2") val questEarlygame_2: List<RawConstantChestOrderGame>? = null,
+        @SerializedName("Quest_lategame_1") val questLategame_1: List<RawConstantChestOrderGame>? = null,
+        @SerializedName("Quest_lategame_2") val questLategame_2: List<RawConstantChestOrderGame>? = null,
+        @SerializedName("Quest_lategame_3") val questLategame_3: List<RawConstantChestOrderGame>? = null,
+        @SerializedName("Quest_lategame_4") val questLategame_4: List<RawConstantChestOrderGame>? = null,
+        @SerializedName("Quest_lategame_5") val questLategame_5: List<RawConstantChestOrderGame>? = null,
+        @SerializedName("Quest_lategame_6") val questLategame_6: List<RawConstantChestOrderGame>? = null,
+        @SerializedName("Quest_lategame_7") val questLategame_7: List<RawConstantChestOrderGame>? = null,
+        @SerializedName("Quest_lategame_8") val questLategame_8: List<RawConstantChestOrderGame>? = null,
+        @SerializedName("Quest_lategame_9") val questLategame_9: List<RawConstantChestOrderGame>? = null,
+        @SerializedName("Quest_lategame_10") val questLategame_10: List<RawConstantChestOrderGame>? = null,
+        @SerializedName("Quest_arena3_UNUSED") val questArena3_UNUSED: List<RawConstantChestOrderGame>? = null
+    )
+
+    data class RawConstantChestOrderGame(
+        @SerializedName("chest") val chest: String? = null,
+        @SerializedName("arena_threshold") val arena_threshold: String? = null,
+        @SerializedName("one_time") val one_time: Any? = null
+    )
+    //endregion
+
+    //region Clan Chest
+    data class RawConstantClanChest(
+        @SerializedName("1v1") val oneVsOne: RawConstantClanChest1v1? = null,
+        @SerializedName("2v2") val twoVsTwo: RawConstantClanChest2v2? = null
+    )
+
+    data class RawConstantClanChest1v1(
+        @SerializedName("thresholds") val thresholds: List<Int>? = null,
+        @SerializedName("gold") val gold: List<Int>? = null,
+        @SerializedName("cards") val cards: List<Int>? = null
+    )
+
+    data class RawConstantClanChest2v2(
+        @SerializedName("thresholds") val thresholds: List<Int>? = null,
+        @SerializedName("gold") val gold: List<Int>? = null,
+        @SerializedName("cards") val cards: List<Int>? = null
+    )
+    //endregion
+
+    data class RawConstantGameModes(
+        @SerializedName("name") val name: String? = null,
+        @SerializedName("card_level_adjustment") val card_level_adjustment: String? = null,
+        @SerializedName("deck_selection") val deck_selection: String? = null,
+        @SerializedName("overtime_seconds") val overtime_seconds: Int? = null,
+        @SerializedName("predefined_decks") val predefined_decks: String? = null,
+        @SerializedName("same_deck_on_both") val same_deck_on_both: Boolean? = null,
+        @SerializedName("separate_team_decks") val separate_team_decks: Boolean? = null,
+        @SerializedName("swapping_towers") val swapping_towers: Boolean? = null,
+        @SerializedName("use_starting_elixir") val use_starting_elixir: Boolean? = null,
+        @SerializedName("heroes") val heroes: Boolean? = null,
+        @SerializedName("players") val players: String? = null,
+        @SerializedName("gives_clan_score") val gives_clan_score: Boolean? = null,
+        @SerializedName("fixed_deck_order") val fixed_deck_order: Boolean? = null,
+        @SerializedName("clan_war_description") val clan_war_description: String? = null,
+        @SerializedName("battle_start_cooldown") val battle_start_cooldown: Int? = null,
+        @SerializedName("heist") val heist: Boolean? = null,
+        @SerializedName("id") val id: Int? = null,
+        @SerializedName("name_en") val name_en: String? = null
+    )
+
+    data class RawConstantRarites(
+        @SerializedName("name") val name: String? = null,
+        @SerializedName("level_count") val level_count: Int? = null,
+        @SerializedName("relative_level") val relative_level: Int? = null,
+        @SerializedName("mirror_relative_level") val mirror_relative_level: Int? = null,
+        @SerializedName("clone_relative_level") val clone_relative_level: Int? = null,
+        @SerializedName("donate_capacity") val donate_capacity: Int? = null,
+        @SerializedName("sort_capacity") val sort_capacity: Int? = null,
+        @SerializedName("donate_reward") val donate_reward: Int? = null,
+        @SerializedName("donate_xp") val donate_xp: Int? = null,
+        @SerializedName("gold_conversion_value") val gold_conversion_value: Int? = null,
+        @SerializedName("chance_weight") val chance_weight: Int? = null,
+        @SerializedName("balance_multiplier") val balance_multiplier: Int? = null,
+        @SerializedName("upgrade_exp") val upgrade_exp: List<Int>? = null,
+        @SerializedName("upgrade_material_count") val upgrade_material_count: List<Int>? = null,
+        @SerializedName("upgrade_cost") val upgrade_cost: List<Int>? = null,
+        @SerializedName("power_level_multiplier") val power_level_multiplier: List<Int>? = null,
+        @SerializedName("refund_gems") val refund_gems: Int? = null
+    )
+
+    data class RawConstantRegions(
+        @SerializedName("id") val id: Int? = null,
+        @SerializedName("key") val key: String? = null,
+        @SerializedName("name") val name: String? = null,
+        @SerializedName("isCountry") val isCountry: Boolean? = null
+    )
+
+    data class RawConstantTournaments(
+        @SerializedName("create_cost") val create_cost: Int? = null,
+        @SerializedName("max_players") val max_players: Int? = null,
+        @SerializedName("key") val key: String? = null,
+        @SerializedName("prizes") val prizes: Any? = null,
+        @SerializedName("cards") val cards: List<Int>? = null
+    )
+
+    //region Treasure Chests
+    data class RawConstantTreasureChests(
+        @SerializedName("cycle") val cycle: List<RawConstantTreasureChestsCycle>? = null,
+        @SerializedName("crown") val crown: List<RawConstantTreasureChestsCrown>? = null,
+        @SerializedName("shop") val shop: List<RawConstantTreasureChestsShop>? = null
+    )
+
+    data class RawConstantTreasureChestsCycle(
+        @SerializedName("name") val name: String? = null,
+        @SerializedName("base_chest") val base_chest: Any? = null,
+        @SerializedName("arena") val arena: RawConstantTreasureChestsArena? = null,
+        @SerializedName("in_shop") val in_shop: Boolean? = null,
+        @SerializedName("in_arena_info") val in_arena_info: Boolean? = null,
+        @SerializedName("tournament_chest") val tournament_chest: Boolean? = null,
+        @SerializedName("survival_chest") val survival_chest: Boolean? = null,
+        @SerializedName("shop_price_without_speed_up") val shop_price_without_speed_up: Int? = null,
+        @SerializedName("time_taken_days") val time_taken_days: Int? = null,
+        @SerializedName("time_taken_hours") val time_taken_hours: Int? = null,
+        @SerializedName("time_taken_minutes") val time_taken_minutes: Int? = null,
+        @SerializedName("time_taken_seconds") val time_taken_seconds: Int? = null,
+        @SerializedName("random_spells") val random_spells: Int? = null,
+        @SerializedName("different_spells") val different_spells: Int? = null,
+        @SerializedName("chest_count_in_chest_cycle") val chest_count_in_chest_cycle: Int? = null,
+        @SerializedName("rare_chance") val rare_chance: Int? = null,
+        @SerializedName("epic_chance") val epic_chance: Int? = null,
+        @SerializedName("legendary_chance") val legendary_chance: Int? = null,
+        @SerializedName("skin_chance") val skin_chance: Int? = null,
+        @SerializedName("guaranteed_spells") val guaranteed_spells: Any? = null,
+        @SerializedName("min_gold_per_card") val min_gold_per_card: Int? = null,
+        @SerializedName("max_gold_per_card") val max_gold_per_card: Int? = null,
+        @SerializedName("spell_set") val spell_set: Any? = null,
+        @SerializedName("exp") val exp: Int? = null,
+        @SerializedName("sort_value") val sort_value: Int? = null,
+        @SerializedName("special_offer") val special_offer: Boolean? = null,
+        @SerializedName("draft_chest") val draft_chest: Boolean? = null,
+        @SerializedName("boosted_chest") val boosted_chest: Boolean? = null,
+        @SerializedName("legendary_override_chance") val legendary_override_chance: Int? = null,
+        @SerializedName("description") val description: String? = null,
+        @SerializedName("notification") val notification: String? = null,
+        @SerializedName("card_count") val card_count: Int? = null,
+        @SerializedName("min_gold") val min_gold: Int? = null,
+        @SerializedName("max_gold") val max_gold: Int? = null,
+        @SerializedName("arenas") val arenas: List<RawConstantTreasureChestsArena>? = null
+    )
+
+    data class RawConstantTreasureChestsCrown(
+        @SerializedName("name") val name: String? = null,
+        @SerializedName("base_chest") val base_chest: Any? = null,
+        @SerializedName("arena") val arena: RawConstantTreasureChestsArena? = null,
+        @SerializedName("in_shop") val in_shop: Boolean? = null,
+        @SerializedName("in_arena_info") val in_arena_info: Boolean? = null,
+        @SerializedName("tournament_chest") val tournament_chest: Boolean? = null,
+        @SerializedName("survival_chest") val survival_chest: Boolean? = null,
+        @SerializedName("shop_price_without_speed_up") val shop_price_without_speed_up: Int? = null,
+        @SerializedName("time_taken_days") val time_taken_days: Int? = null,
+        @SerializedName("time_taken_hours") val time_taken_hours: Int? = null,
+        @SerializedName("time_taken_minutes") val time_taken_minutes: Int? = null,
+        @SerializedName("time_taken_seconds") val time_taken_seconds: Int? = null,
+        @SerializedName("random_spells") val random_spells: Int? = null,
+        @SerializedName("different_spells") val different_spells: Int? = null,
+        @SerializedName("chest_count_in_chest_cycle") val chest_count_in_chest_cycle: Int? = null,
+        @SerializedName("rare_chance") val rare_chance: Int? = null,
+        @SerializedName("epic_chance") val epic_chance: Int? = null,
+        @SerializedName("legendary_chance") val legendary_chance: Int? = null,
+        @SerializedName("skin_chance") val skin_chance: Int? = null,
+        @SerializedName("guaranteed_spells") val guaranteed_spells: Any? = null,
+        @SerializedName("min_gold_per_card") val min_gold_per_card: Int? = null,
+        @SerializedName("max_gold_per_card") val max_gold_per_card: Int? = null,
+        @SerializedName("spell_set") val spell_set: Any? = null,
+        @SerializedName("exp") val exp: Int? = null,
+        @SerializedName("sort_value") val sort_value: Int? = null,
+        @SerializedName("special_offer") val special_offer: Boolean? = null,
+        @SerializedName("draft_chest") val draft_chest: Boolean? = null,
+        @SerializedName("boosted_chest") val boosted_chest: Boolean? = null,
+        @SerializedName("legendary_override_chance") val legendary_override_chance: Int? = null,
+        @SerializedName("description") val description: String? = null,
+        @SerializedName("notification") val notification: String? = null,
+        @SerializedName("card_count") val card_count: Int? = null,
+        @SerializedName("min_gold") val min_gold: Int? = null,
+        @SerializedName("max_gold") val max_gold: Int? = null,
+        @SerializedName("arenas") val arenas: List<RawConstantTreasureChestsArena>? = null
+    )
+
+    data class RawConstantTreasureChestsShop(
+        @SerializedName("name") val name: String? = null,
+        @SerializedName("base_chest") val base_chest: Any? = null,
+        @SerializedName("arena") val arena: RawConstantTreasureChestsArena? = null,
+        @SerializedName("in_shop") val in_shop: Boolean? = null,
+        @SerializedName("in_arena_info") val in_arena_info: Boolean? = null,
+        @SerializedName("tournament_chest") val tournament_chest: Boolean? = null,
+        @SerializedName("survival_chest") val survival_chest: Boolean? = null,
+        @SerializedName("shop_price_without_speed_up") val shop_price_without_speed_up: Int? = null,
+        @SerializedName("time_taken_days") val time_taken_days: Int? = null,
+        @SerializedName("time_taken_hours") val time_taken_hours: Int? = null,
+        @SerializedName("time_taken_minutes") val time_taken_minutes: Int? = null,
+        @SerializedName("time_taken_seconds") val time_taken_seconds: Int? = null,
+        @SerializedName("random_spells") val random_spells: Int? = null,
+        @SerializedName("different_spells") val different_spells: Int? = null,
+        @SerializedName("chest_count_in_chest_cycle") val chest_count_in_chest_cycle: Int? = null,
+        @SerializedName("rare_chance") val rare_chance: Int? = null,
+        @SerializedName("epic_chance") val epic_chance: Int? = null,
+        @SerializedName("legendary_chance") val legendary_chance: Int? = null,
+        @SerializedName("skin_chance") val skin_chance: Int? = null,
+        @SerializedName("guaranteed_spells") val guaranteed_spells: Any? = null,
+        @SerializedName("min_gold_per_card") val min_gold_per_card: Int? = null,
+        @SerializedName("max_gold_per_card") val max_gold_per_card: Int? = null,
+        @SerializedName("spell_set") val spell_set: Any? = null,
+        @SerializedName("exp") val exp: Int? = null,
+        @SerializedName("sort_value") val sort_value: Int? = null,
+        @SerializedName("special_offer") val special_offer: Boolean? = null,
+        @SerializedName("draft_chest") val draft_chest: Boolean? = null,
+        @SerializedName("boosted_chest") val boosted_chest: Boolean? = null,
+        @SerializedName("legendary_override_chance") val legendary_override_chance: Int? = null,
+        @SerializedName("description") val description: String? = null,
+        @SerializedName("notification") val notification: String? = null,
+        @SerializedName("card_count") val card_count: Int? = null,
+        @SerializedName("min_gold") val min_gold: Int? = null,
+        @SerializedName("max_gold") val max_gold: Int? = null,
+        @SerializedName("arenas") val arenas: List<RawConstantTreasureChestsArena>? = null
+    )
+
+    data class RawConstantTreasureChestsArena(
+        @SerializedName("name") val name: String? = null,
+        @SerializedName("arena") val arena: Int? = null,
+        @SerializedName("chest_reward_multiplier") val chest_reward_multiplier: Int? = null,
+        @SerializedName("shop_chest_reward_multiplier") val shop_chest_reward_multiplier: Int? = null,
+        @SerializedName("key") val key: String? = null,
+        @SerializedName("title") val title: String? = null,
+        @SerializedName("subtitle") val subtitle: String? = null,
+        @SerializedName("card_count_by_arena") val card_count_by_arena: Double? = null,
+        @SerializedName("card_count_common") val card_count_common: Double? = null,
+        @SerializedName("card_count_rare") val card_count_rare: Double? = null,
+        @SerializedName("card_count_epic") val card_count_epic: Double? = null,
+        @SerializedName("card_count_legendary") val card_count_legendary: Double? = null
+    )
+    //endregion
 }

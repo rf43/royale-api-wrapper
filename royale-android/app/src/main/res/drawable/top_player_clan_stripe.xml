@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <corners
+        android:bottomRightRadius="@dimen/radius_full"
+        android:topRightRadius="@dimen/radius_full" />
+
+    <gradient
+        android:centerColor="@color/topPlayer_clanStripe_centerColor"
+        android:endColor="@color/topPlayer_clanStripe_endColor"
+        android:gradientRadius="0"
+        android:startColor="@color/topPlayer_clanStripe_startColor"
+        android:type="linear" />
+
+</shape>

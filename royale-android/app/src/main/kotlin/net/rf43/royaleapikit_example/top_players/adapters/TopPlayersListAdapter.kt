@@ -9,15 +9,15 @@ import net.rf43.royaleapikit_example.top_players.viewholders.TopPlayerViewHolder
 import net.rf43.royaleapikit.consumer.RawTopPlayerModel
 
 class TopPlayersListAdapter(val context: Context, val players: List<RawTopPlayerModel.RawTopPlayer>) :
-    RecyclerView.Adapter<TopPlayerViewHolder>() {
+        RecyclerView.Adapter<TopPlayerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopPlayerViewHolder {
         return TopPlayerViewHolder(
-            LayoutInflater.from(context).inflate(
-                R.layout.item_top_player,
-                parent,
-                false
-            )
+                LayoutInflater.from(context).inflate(
+                        R.layout.item_top_player,
+                        parent,
+                        false
+                )
         )
     }
 
@@ -26,6 +26,6 @@ class TopPlayersListAdapter(val context: Context, val players: List<RawTopPlayer
     }
 
     override fun onBindViewHolder(holder: TopPlayerViewHolder, position: Int) {
-        holder.bind(players[position])
+        holder.bind(players[position], position)
     }
 }

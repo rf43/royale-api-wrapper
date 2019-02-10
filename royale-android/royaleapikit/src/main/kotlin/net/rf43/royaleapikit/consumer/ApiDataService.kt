@@ -16,10 +16,10 @@ interface ApiDataService {
     fun playerAsync(@Path("playerId") playerId: String): Deferred<Response<RawPlayerModel.RawPlayer>>
 
     @GET("top/players")
-    fun topPlayersAsync(): Deferred<Response<ArrayList<RawTopPlayerModel.RawTopPlayer>?>>
+    fun topPlayersAsync(): Deferred<Response<List<RawTopPlayerModel.RawTopPlayer>?>>
 
     @GET("popular/players")
-    fun popularPlayersAsync(): Deferred<Response<ArrayList<RawPopularPlayerModel.RawPopularPlayer>>>
+    fun popularPlayersAsync(): Deferred<Response<List<RawPopularPlayerModel.RawPopularPlayer>>>
 
     @GET("constants")
     fun constantsAsync(): Deferred<Response<ResponseBody>>
