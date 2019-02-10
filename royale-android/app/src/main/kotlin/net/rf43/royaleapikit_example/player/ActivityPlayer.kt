@@ -2,7 +2,6 @@ package net.rf43.royaleapikit_example.player
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +11,6 @@ import net.rf43.royaleapikit.Logger
 import net.rf43.royaleapikit.provider.PlayerModel
 import net.rf43.royaleapikit_example.R
 import net.rf43.royaleapikit_example.common.BaseActivity
-import kotlin.math.log
 
 class ActivityPlayer : BaseActivity() {
 
