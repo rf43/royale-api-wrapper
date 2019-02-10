@@ -7,12 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import net.rf43.royaleapikit.provider.TopPlayerModel
 import net.rf43.royaleapikit_example.R
 import net.rf43.royaleapikit_example.common.BaseActivity
 import net.rf43.royaleapikit_example.top_players.adapters.TopPlayersListAdapter
-import net.rf43.royaleapikit.consumer.RawTopPlayerModel
 
 class ActivityTopPlayers : BaseActivity() {
 
@@ -30,13 +29,13 @@ class ActivityTopPlayers : BaseActivity() {
         topPlayerRecyclerView.layoutManager = LinearLayoutManager(this)
 
         GlobalScope.launch(Dispatchers.Main) {
-            initTopPlayerList(royaleApiKit.getRawTopPlayers())
+            initTopPlayerList(royaleApiKit.getTopPlayers())
             topPlayerLoadingIndicator.visibility = View.GONE
         }
     }
 
-    private fun initTopPlayerList(players: List<RawTopPlayerModel.RawTopPlayer>) {
+    private fun initTopPlayerList(players: List<TopPlayerModel.TopPlayer>) {
         topPlayerRecyclerView.adapter =
-            TopPlayersListAdapter(context = this, players = players)
+                TopPlayersListAdapter(context = this, players = players)
     }
 }

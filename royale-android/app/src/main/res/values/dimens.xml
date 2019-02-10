@@ -6,6 +6,8 @@
     <dimen name="spacing_full">16dp</dimen>
     <dimen name="spacing_three_quarter">24dp</dimen>
     <dimen name="spacing_double">32dp</dimen>
+    <dimen name="spacing_double_half">30dp</dimen>
+    <dimen name="spacing_triple">48dp</dimen>
 
     <dimen name="margin_eighth">@dimen/spacing_eighth</dimen>
     <dimen name="margin_quarter">@dimen/spacing_quarter</dimen>
@@ -13,6 +15,7 @@
     <dimen name="margin_full">@dimen/spacing_full</dimen>
     <dimen name="margin_three_quarter">@dimen/spacing_three_quarter</dimen>
     <dimen name="margin_double">@dimen/spacing_double</dimen>
+    <dimen name="margin_double_half">@dimen/spacing_double_half</dimen>
 
     <dimen name="padding_eighth">@dimen/spacing_eighth</dimen>
     <dimen name="padding_quarter">@dimen/spacing_quarter</dimen>
@@ -20,6 +23,7 @@
     <dimen name="padding_full">@dimen/spacing_full</dimen>
     <dimen name="padding_three_quarter">@dimen/spacing_three_quarter</dimen>
     <dimen name="padding_double">@dimen/spacing_double</dimen>
+    <dimen name="padding_double_half">@dimen/spacing_double_half</dimen>
 
     <dimen name="radius_full">4dp</dimen>
 </resources>

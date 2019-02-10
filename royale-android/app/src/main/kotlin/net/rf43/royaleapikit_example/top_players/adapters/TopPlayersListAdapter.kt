@@ -4,11 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import net.rf43.royaleapikit.provider.TopPlayerModel
 import net.rf43.royaleapikit_example.R
 import net.rf43.royaleapikit_example.top_players.viewholders.TopPlayerViewHolder
-import net.rf43.royaleapikit.consumer.RawTopPlayerModel
 
-class TopPlayersListAdapter(val context: Context, val players: List<RawTopPlayerModel.RawTopPlayer>) :
+class TopPlayersListAdapter(val context: Context, val players: List<TopPlayerModel.TopPlayer>) :
         RecyclerView.Adapter<TopPlayerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopPlayerViewHolder {
