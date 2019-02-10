@@ -25,7 +25,7 @@ inline fun <reified T : Any> getJsonFromFile(context: Context): String {
         fn = "royale_constants.json"
     } else
         if (RawTopPlayerModel.RawTopPlayer() is T) {
-            fn =  "royale_top_players.json"
+            fn = "royale_top_players.json"
         }
 
     val fromFile = context.openFileInput(fn)

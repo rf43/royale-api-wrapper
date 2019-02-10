@@ -35,12 +35,16 @@
 
     <TextView
         android:id="@+id/top_player_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_full"
         android:fontFamily="@font/montserrat_black"
+        android:lines="1"
         android:textColor="@color/darkSteelBlue"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/top_player_clan_badge"
         app:layout_constraintTop_toBottomOf="@id/top_player_clan_title"
         tools:text="This is a name" />
@@ -50,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_half"
-        android:layout_marginBottom="@dimen/margin_double"
+        android:layout_marginBottom="@dimen/margin_double_half"
         android:fontFamily="@font/montserrat_medium"
         android:textColor="@color/darkSteelBlue"
         android:textSize="12sp"
@@ -71,6 +75,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="#100" />
+
+    <ImageView
+        android:id="@+id/top_player_rank_movement_arrow"
+        android:layout_width="16dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/top_player_rank_movement_amount"
+        app:layout_constraintEnd_toStartOf="@id/top_player_rank_movement_amount"
+        app:layout_constraintTop_toTopOf="@id/top_player_rank_movement_amount"
+        tools:src="@drawable/ic_arrow_upward" />
+
+    <TextView
+        android:id="@+id/top_player_rank_movement_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/darkSteelBlue"
+        android:textSize="13sp"
+        app:fontFamily="@font/montserrat_bold"
+        app:layout_constraintEnd_toEndOf="@id/top_player_rank"
+        app:layout_constraintTop_toBottomOf="@id/top_player_rank"
+        tools:text="8" />
 
     <View
         android:id="@+id/temp_divider"

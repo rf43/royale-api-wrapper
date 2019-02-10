@@ -4,11 +4,13 @@ import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import net.rf43.royaleapikit.adapters.TopPlayerAdapter
 import net.rf43.royaleapikit.consumer.ApiDataService
 import net.rf43.royaleapikit.consumer.RawConstantsModel
 import net.rf43.royaleapikit.consumer.RawPlayerModel
 import net.rf43.royaleapikit.consumer.RawTopPlayerModel
 import net.rf43.royaleapikit.extensions.isValid
+import net.rf43.royaleapikit.provider.TopPlayerModel
 import retrofit2.HttpException
 
 class RoyaleApiKit(private val context: Context, developerKey: String, private val useCache: Boolean = true) {
@@ -64,7 +66,17 @@ class RoyaleApiKit(private val context: Context, developerKey: String, private v
         }
     }
 
-    suspend fun getRawTopPlayers(): List<RawTopPlayerModel.RawTopPlayer> {
+    suspend fun getTopPlayers(): List<TopPlayerModel.TopPlayer> {
+        val rawList = getRawTopPlayers()
+
+        if (!rawList.isEmpty()) {
+            return TopPlayerAdapter().convert(rawList)
+        }
+
+        return emptyList()
+    }
+
+    private suspend fun getRawTopPlayers(): List<RawTopPlayerModel.RawTopPlayer> {
         val pList = royaleApiDataService.topPlayersAsync()
 
         try {
