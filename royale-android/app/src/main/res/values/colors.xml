@@ -8,6 +8,9 @@
     <color name="white">@android:color/white</color>
     <color name="offWhite">#FFEFEFEF</color>
     <color name="black">@android:color/black</color>
+    <color name="grey300_100">#FFE0E0E0</color>
+    <color name="grey400_100">#FFBDBDBD</color>
+    <color name="grey500_100">#FF9E9E9E</color>
     <color name="darkSteelBlue">@color/darkSteelBlue_100</color>
     <color name="darkSteelBlue_0">#FF243A44</color>
     <color name="darkSteelBlue_10">#1A243A44</color>
@@ -39,5 +42,6 @@
     <color name="topPlayer_clanStripe_centerColor">@color/darkSteelBlue_75</color>
     <color name="topPlayer_clanStripe_endColor">@color/darkSteelBlue_100</color>
     <color name="topPlayer_clanName">@color/offWhite</color>
+    <color name="topPlayer_skeleton_boxes">@color/grey300_100</color>
 
 </resources>

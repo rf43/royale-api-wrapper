@@ -15,7 +15,7 @@ import net.rf43.royaleapikit_example.top_players.adapters.TopPlayersListAdapter
 
 class ActivityTopPlayers : BaseActivity() {
 
-    private lateinit var topPlayerRecyclerView: RecyclerView
+    private lateinit var topPlayersAdapter: TopPlayersListAdapter
     private lateinit var topPlayerLoadingIndicator: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,17 +25,19 @@ class ActivityTopPlayers : BaseActivity() {
         topPlayerLoadingIndicator = findViewById(R.id.top_player_loading_indicator)
         topPlayerLoadingIndicator.visibility = View.VISIBLE
 
-        topPlayerRecyclerView = findViewById(R.id.recycler_top_players)
+        val topPlayerRecyclerView = findViewById<RecyclerView>(R.id.recycler_top_players)
         topPlayerRecyclerView.layoutManager = LinearLayoutManager(this)
+        topPlayerRecyclerView.adapter = TopPlayersListAdapter(context = this)
+
+        topPlayersAdapter = topPlayerRecyclerView.adapter as TopPlayersListAdapter
 
         GlobalScope.launch(Dispatchers.Main) {
-            initTopPlayerList(royaleApiKit.getTopPlayers())
+            loadPlayersIntoList(royaleApiKit.getTopPlayers())
             topPlayerLoadingIndicator.visibility = View.GONE
         }
     }
 
-    private fun initTopPlayerList(players: List<TopPlayerModel.TopPlayer>) {
-        topPlayerRecyclerView.adapter =
-                TopPlayersListAdapter(context = this, players = players)
+    private fun loadPlayersIntoList(players: List<TopPlayerModel.TopPlayer>) {
+        topPlayersAdapter.addPlayers(players)
     }
 }

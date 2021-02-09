@@ -18,9 +18,9 @@ class TopPlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val playerRankMovementAmount = itemView.findViewById<TextView>(R.id.top_player_rank_movement_amount)
     private val playerRankMovementArrow = itemView.findViewById<ImageView>(R.id.top_player_rank_movement_arrow)
 
-    fun bind(player: TopPlayerModel.TopPlayer, position: Int) {
-        setClanUi(player)
-        setPlayerUi(player, position)
+    fun bind(item: TopPlayerModel.TopPlayer, position: Int) {
+        setClanUi(item)
+        setPlayerUi(item, position)
     }
 
     private fun setClanUi(player: TopPlayerModel.TopPlayer) {
